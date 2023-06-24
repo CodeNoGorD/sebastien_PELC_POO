@@ -16,6 +16,23 @@ class MotoManager extends DbManager
         return $motos;
     }
 
+    public function getOneTypeMoto($type)
+    {
+        $query = $this->pdo->prepare('SELECT * FROM moto WHERE moto_type = :type');
+        $query->execute([
+            'type' => $type
+        ]);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        $motos = [];
+        if ($results) {
+            foreach ($results as $res) {
+                $motos[] = new Moto($res['moto_id'], $res['moto_marque'], $res['moto_modele'], $res['moto_type'], $res['moto_image']);
+            }
+        }
+        return $motos;
+    }
+
     public function getOneMoto($id)
     {
         $query = $this->pdo->prepare('SELECT * FROM moto WHERE moto_id = :id');
@@ -38,7 +55,7 @@ class MotoManager extends DbManager
         $image = $moto->getMotoImage();
 
         $query = $this->pdo->prepare(
-            "INSERT INTO moto (marque, modele, type, image) VALUES
+            "INSERT INTO moto (moto_marque, moto_modele, moto_type, moto_image) VALUES
                     (:marque, :modele, :type, :image)");
 
         $query->execute(
@@ -50,10 +67,9 @@ class MotoManager extends DbManager
             ]
         );
 
-        $moto->setId($this->pdo->lastInsertId());
+        $moto->setMotoId($this->pdo->lastInsertId());
 
         return $moto;
-
     }
 
     public function getAllTypes()
@@ -62,7 +78,6 @@ class MotoManager extends DbManager
             $query = $this->pdo->prepare('SELECT * FROM type');
             $query->execute();
             $results = $query->fetchAll(PDO::FETCH_ASSOC);
-
             return $results;
         }
     }

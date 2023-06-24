@@ -5,7 +5,7 @@ require 'View/parts/header.php';
 
     <h1 class="my-4">Créer mon compte !!</h1>
 
-    <a href="index.php?controller=security&action=login" class="d-block my-4"> Retour</a>
+    <a href="index.php?controller=security&action=login" class="btn btn-primary my-4"> Retour</a>
 
     <form method="post">
         <div class="col-md-12 my-4">
