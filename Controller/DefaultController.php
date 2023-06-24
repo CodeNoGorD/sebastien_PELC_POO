@@ -2,6 +2,7 @@
 class DefaultController extends SecurityController {
     public function __construct()
     {
+        parent::isLoggedIn();
         parent::__construct();
     }
 

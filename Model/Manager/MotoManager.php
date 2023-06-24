@@ -1,4 +1,5 @@
 <?php
+
 class MotoManager extends DbManager
 {
     public function getAllMotos()
@@ -8,24 +9,29 @@ class MotoManager extends DbManager
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
 
         $motos = [];
-        foreach ($results as $res){
+        foreach ($results as $res) {
             $motos[] = new Moto($res['moto_id'], $res['moto_marque'], $res['moto_modele'], $res['moto_type'], $res['moto_image']);
         }
 
         return $motos;
     }
+
     public function getOneMoto($id)
     {
         $query = $this->pdo->prepare('SELECT * FROM moto WHERE moto_id = :id');
         $query->execute([
-            'id'=> $id
+            'id' => $id
         ]);
         $res = $query->fetch(PDO::FETCH_ASSOC);
-
-        $moto = new Moto($res['moto_id'], $res['moto_marque'], $res['moto_modele'], $res['moto_type'], $res['moto_image']);
+        $moto = null;
+        if ($res) {
+            $moto = new Moto($res['moto_id'], $res['moto_marque'], $res['moto_modele'], $res['moto_type'], $res['moto_image']);
+        }
         return $moto;
     }
-    public function add(Moto $moto) {
+
+    public function add(Moto $moto)
+    {
         $marque = $moto->getMotoMarque();
         $modele = $moto->getMotoModele();
         $type = $moto->getMotoType();
@@ -37,9 +43,9 @@ class MotoManager extends DbManager
 
         $query->execute(
             [
-                "marque"=>$marque,
-                "modele"=> $modele,
-                "type"=> $type,
+                "marque" => $marque,
+                "modele" => $modele,
+                "type" => $type,
                 "image" => $image
             ]
         );
@@ -49,7 +55,9 @@ class MotoManager extends DbManager
         return $moto;
 
     }
-    public function getAllTypes(){
+
+    public function getAllTypes()
+    {
         {
             $query = $this->pdo->prepare('SELECT * FROM type');
             $query->execute();
@@ -58,11 +66,12 @@ class MotoManager extends DbManager
             return $results;
         }
     }
+
     public function delete($id)
     {
         $query = $this->pdo->prepare('DELETE FROM moto WHERE moto_id = :id');
         $query->execute([
-            'id'=> $id
+            'id' => $id
         ]);
     }
 }

@@ -20,6 +20,9 @@ class MotoController extends SecurityController
     {
         $types = $this->mm->getAllTypes();
         $moto = $this->mm->getOneMoto($id);
+        if(is_null($moto)){
+            header("Location: index.php?controller=default&action=not-found");
+        }
         require 'View/moto/moto.php';
     }
 
