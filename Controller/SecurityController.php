@@ -36,18 +36,18 @@ class SecurityController
     {
         $errors = [];
         if ($_SERVER["REQUEST_METHOD"] == 'POST') {
-            if (empty($_POST["username"])) {
-                $errors["username"] = 'Veuillez saisir un username';
+            if (empty($_POST["user_name"])) {
+                $errors["name"] = 'Veuillez saisir un Nom d\'utilisateur';
             }
 
-            if (empty($_POST["password"])) {
+            if (empty($_POST["user_password"])) {
                 $errors["password"] = 'Veuillez saisir un mot de passe';
             }
 
             if (count($errors) == 0) {
-                $user = $this->userManager->getByUsername($_POST["username"]);
+                $user = $this->userManager->getByUserName($_POST["user_name"]);
 
-                if (is_null($user) || !password_verify($_POST["password"], $user->getPassword())) {
+                if (is_null($user) || !password_verify($_POST["user_password"], $user->getUserPassword())) {
                     $errors["password"] = 'Identifiant ou mot de passe invalid';
                 } else {
                     $this->currentUser = $user;
@@ -66,33 +66,33 @@ class SecurityController
 
         if ($_SERVER["REQUEST_METHOD"] == 'POST') {
             // Username pas vide
-            if (empty($_POST["username"])) {
-                $errors["username"] = "Veuillez saisir un username";
+            if (empty($_POST["user_name"])) {
+                $errors["user_name"] = "Veuillez saisir un nom d'utilisateur";
             }
             // Username n'existe pas déjà
-            $user = $this->userManager->getByUsername($_POST["username"]);
+            $user = $this->userManager->getByUserName($_POST["user_name"]);
 
             if ($user) {
-                $errors['username'] = 'Impossible cet utilisateur existe déjà';
+                $errors['user_name'] = 'Impossible cet utilisateur existe déjà';
             }
 
             // Nom pas vide
-            if (empty($_POST["nom"])) {
-                $errors["nom"] = 'Veuillez saisir votre nom';
+            if (empty($_POST["user_lastname"])) {
+                $errors["user_lastname"] = 'Veuillez saisir votre nom';
             }
 
             // Prénom pas vide
-            if (empty($_POST["prenom"])) {
-                $errors["prenom"] = 'Veuillez saisir votre prénom';
+            if (empty($_POST["user_firstname"])) {
+                $errors["user_firstname"] = 'Veuillez saisir votre prénom';
             }
 
             // Mot de passe pas vide
-            if (empty($_POST["password"])) {
-                $errors["password"] = 'Veuillez saisir votre mot de passe';
+            if (empty($_POST["user_password"])) {
+                $errors["user_password"] = 'Veuillez saisir votre mot de passe';
             }
 
             // Mot de passe correspond à la confirmation
-            if ($_POST["password"] !== $_POST["confirm_password"]) {
+            if ($_POST["user_password"] !== $_POST["confirm_password"]) {
                 $errors["confirm_password"] = 'Les mots de passe ne correspondent pas';
             }
 
@@ -100,10 +100,10 @@ class SecurityController
             if (count($errors) == 0) {
                 $user = new User(
                     null,
-                    $_POST["username"],
-                    $_POST["nom"],
-                    $_POST["prenom"],
-                    password_hash($_POST["password"], PASSWORD_DEFAULT)
+                    $_POST["user_name"],
+                    $_POST["user_lastname"],
+                    $_POST["user_firstname"],
+                    password_hash($_POST["user_password"], PASSWORD_BCRYPT)
                 );
 
                 $this->userManager->add($user);

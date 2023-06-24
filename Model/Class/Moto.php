@@ -1,20 +1,14 @@
 <?php
 class Moto
 {
-    private int $moto_id;
-    private string $moto_marque;
-    private string $moto_modele;
-    private int $moto_type;
-    private string $moto_image;
+    private $moto_id;
+    private $moto_marque;
+    private $moto_modele;
+    private $moto_type;
+    private $moto_image;
 
-    /**
-     * @param int $moto_id
-     * @param string $moto_marque
-     * @param string $moto_modele
-     * @param int $moto_type
-     * @param string $moto_image
-     */
-    public function __construct(int $moto_id, string $moto_marque, string $moto_modele, int $moto_type, string $moto_image)
+
+    public function __construct($moto_id, $moto_marque, $moto_modele, $moto_type, $moto_image)
     {
         $this->moto_id = $moto_id;
         $this->moto_marque = $moto_marque;
@@ -74,7 +68,7 @@ class Moto
     /**
      * @return int
      */
-    public function getMotoType(): int
+    public function getMotoType()
     {
         return $this->moto_type;
     }

@@ -1,10 +1,8 @@
 <?php
 class DefaultController extends SecurityController {
-
     public function __construct()
     {
         parent::__construct();
-        parent::isLoggedIn();
     }
 
     public function home(){

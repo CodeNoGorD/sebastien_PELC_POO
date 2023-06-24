@@ -1,20 +1,14 @@
 <?php
 class User
 {
-    private int $user_id;
-    private string $user_name;
-    private string $user_lastname;
-    private string $user_firstname;
-    private string $user_password;
+    private $user_id;
+    private $user_name;
+    private $user_lastname;
+    private $user_firstname;
+    private $user_password;
 
-    /**
-     * @param int $user_id
-     * @param string $user_name
-     * @param string $user_lastname
-     * @param string $user_firstname
-     * @param string $user_password
-     */
-    public function __construct(int $user_id, string $user_name, string $user_lastname, string $user_firstname, string $user_password)
+
+    public function __construct($user_id, $user_name, $user_lastname, $user_firstname, $user_password)
     {
         $this->user_id = $user_id;
         $this->user_name = $user_name;

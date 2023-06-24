@@ -12,14 +12,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item">
+                <li class="nav-item ">
                     <a class="nav-link" href="index.php?controller=default&action=home">Accueil</a>
                 </li>
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" href="--><?php //= !empty($_SESSION)? 'index.php?controller=security&action=logout': 'index.php?controller=security&action=login'; ?><!--">-->
-<!--                    --><?php //= !empty($_SESSION)? 'Déconnexion': 'Connexion'; ?>
-<!--                    </a>-->
-<!--                </li>-->
+                <li class="nav-item ">
+                    <a class="nav-link" href="<?= !empty($_SESSION)? 'index.php?controller=security&action=logout': 'index.php?controller=security&action=login'; ?>">
+                    <?= !empty($_SESSION)? 'Déconnexion': 'Connexion'; ?>
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>

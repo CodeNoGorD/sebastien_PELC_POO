@@ -3,7 +3,6 @@ class MotoController extends SecurityController
 {
     private $mm;
 
-
     public function __construct()
     {
         parent::__construct();
@@ -13,13 +12,14 @@ class MotoController extends SecurityController
     public function displayAllMotos()
     {
         SecurityController::isloggedin();
-        $autos = $this->mm->getAllMotos();
+        $motos = $this->mm->getAllMotos();
         require 'View/moto/list.php';
     }
 
     public function displayOneMoto($id)
     {
-        $auto = $this->mm->getOneMoto($id);
+        $types = $this->mm->getAllTypes();
+        $moto = $this->mm->getOneMoto($id);
         require 'View/moto/moto.php';
     }
 
